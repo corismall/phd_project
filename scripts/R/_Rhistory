@@ -1,0 +1,423 @@
+library(dplyr)
+library(tidyr)
+library(ape)
+if (!requireNamespace("BiocManager", quietly = TRUE))
+install.packages("BiocManager")
+BiocManager::install("ggtree")
+library(ggtree)
+#read in tree
+t = read.tree("/Users/Corinn/Downloads/T13.raxml.rooted.support")
+#read in tree
+t = read.tree("/home/corinn/Documents/sequences/ITS/pops/fasta/trees_raxml/T13.raxml.rooted.support")
+#read in info
+iso_list <- as.data.frame(read.csv("/home/corinn/Documents/Sampling_trip/isolate_list_peru2019_total - TOTAL(1).csv", sep = ",", header = T))
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv", sep = ",", header = T))
+coords <- as.data.frame(read.csv("/home/corinn/Documents/Sampling_trip/iso_cc.csv", sep = ",", header = T))
+coords <- as.data.frame(read.csv("/home/corinn/Documents/Sampling_trip/iso_cc.csv", sep = ",", header = T))
+#create full species name, rearrange dataset
+blast_res$fullname <- paste(blast_res$TopHit_genus,blast_res$TopHit_species, sep = " ")
+blast_res <- data.frame(taxa_label = blast_res$fullname,id = blast_res$Query_ID,pid = blast_res$Hit_pid)
+#create plotable object
+p <- ggtree(t) %<+% blast_res
+p2 <- p + geom_tiplab() + geom_tippoint() + geom_label(aes(label = taxa_label))
+p2
+View(blast_res)
+View(t)
+blast_res <- data.frame(tip.label = blast_res$fullname,id = blast_res$Query_ID,pid = blast_res$Hit_pid)
+#create plotable object
+p <- ggtree(t) %<+% blast_res
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv", sep = ",", header = T))
+coords <- as.data.frame(read.csv("/home/corinn/Documents/Sampling_trip/iso_cc.csv", sep = ",", header = T))
+#create full species name, rearrange dataset
+blast_res$fullname <- paste(blast_res$TopHit_genus,blast_res$TopHit_species, sep = " ")
+blast_res <- data.frame(tip.label = blast_res$fullname,id = blast_res$Query_ID,pid = blast_res$Hit_pid)
+#create plotable object
+p <- ggtree(t) %<+% blast_res
+p2 <- p + geom_tiplab() + geom_tippoint() + geom_label(aes(label = tip.label))
+p2
+p2 <- p + geom_tiplab() + geom_tippoint() + geom_label(aes(label = blast_res$tip.label))
+p2
+species <- as.data.frame(unique(blast_res[,c(1,2,3)]))
+View(species)
+species = unique(blast_res[,c(2,3)])
+View(species)
+species = unique(blast_res[,c(1,2,3)])
+View(species)
+species = unique(blast_res[,2])
+species <- data.frame(species)
+View(species)
+blast_res <- data.frame(tip.label = blast_res$fullname,species = blast_res$Query_ID,pid = blast_res$Hit_pid)
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv", sep = ",", header = T))
+#create full species name, rearrange dataset
+blast_res$fullname <- paste(blast_res$TopHit_genus,blast_res$TopHit_species, sep = " ")
+blast_res <- data.frame(tip.label = blast_res$fullname,species = blast_res$Query_ID,pid = blast_res$Hit_pid)
+View(blast_res)
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv", sep = ",", header = T))
+#create full species name, rearrange dataset
+blast_res$fullname <- paste(blast_res$TopHit_genus,blast_res$TopHit_species, sep = " ")
+blast_res <- data.frame(tip.label = blast_res$fullname,id = blast_res$Query_ID,pid = blast_res$Hit_pid)
+id = unique(blast_res[,2])
+id <- data.frame(id)
+View(id)
+species <- merge.data.frame(id,blast_res, by.x ="id")
+View(species)
+id = unique(blast_res[,2])
+nrow(distinct(blast_res, id)
+nrow(distinct(blast_res, id))
+species <- merge.data.frame(id,blast_res, by.x ="id")
+distinct(blast_res, id)
+blast_res <- distinct(blast_res, id)
+View(blast_res)
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv", sep = ",", header = T))
+#create full species name, rearrange dataset
+blast_res$fullname <- paste(blast_res$TopHit_genus,blast_res$TopHit_species, sep = " ")
+blast_res <- data.frame(tip.label = blast_res$fullname,id = blast_res$Query_ID,pid = blast_res$Hit_pid)
+blast_res <- distinct(blast_res,tip.label,id,pid)
+View(blast_res)
+blast_res <- nrow(distinct(blast_res,tip.label,id,pid))
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv", sep = ",", header = T))
+#create full species name, rearrange dataset
+blast_res$fullname <- paste(blast_res$TopHit_genus,blast_res$TopHit_species, sep = " ")
+blast_res <- data.frame(tip.label = blast_res$fullname,id = blast_res$Query_ID,pid = blast_res$Hit_pid)
+blast_res <- distinct(blast_res,tip.label,id,pid)
+View(blast_res)
+blast_res <- distinct(blast_res, .keep_all = F)
+View(blast_res)
+blast_res <- distinct(blast_res, by = "id")
+View(iso_list)
+View(blast_res)
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv", sep = ",", header = T))
+#create full species name, rearrange dataset
+blast_res$fullname <- paste(blast_res$TopHit_genus,blast_res$TopHit_species, sep = " ")
+blast_res <- data.frame(tip.label = blast_res$fullname,id = blast_res$Query_ID,pid = blast_res$Hit_pid)
+blast_res <- distinct(blast_res$id)
+blast_res %>% distinct(id, .keep_all = T)
+View(blast_res)
+blast_res <- as.data.frame(blast_res %>% distinct(id, .keep_all = T))
+View(blast_res)
+View(t)
+#create plotable object
+p <- ggtree(t) %<+% blast_res
+p2 <- p + geom_tiplab() + geom_tippoint() + geom_label(aes(label = blast_res$tip.label))
+p2
+#selecting blast results specific for tree
+t <- as_tibble(t)
+View(t)
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv", sep = ",", header = T))
+#create full species name, rearrange dataset
+blast_res$fullname <- paste(blast_res$TopHit_genus,blast_res$TopHit_species, sep = " ")
+blast_res <- data.frame(tip.label = blast_res$fullname,label = blast_res$Query_ID,pid = blast_res$Hit_pid)
+blast_res <- as.data.frame(blast_res %>% distinct(label, .keep_all = T))
+View(blast_res)
+#selecting blast results specific for tree
+t <- as_tibble(t)
+t_m <- merge.data.frame(t,blast_res, by.x = "label")
+View(t_m)
+View(t)
+View(t)
+#read in tree
+t = read.tree("/home/corinn/Documents/sequences/ITS/pops/fasta/trees_raxml/T13.raxml.rooted.support")
+ggtree(t)
+ggtree(t) + geom_tiplab() + geom_tippoint()
+t
+t$tip.label
+t$tip.label %in% blast_res$label
+t$tip.label[1]
+#read in info
+iso_list <- as.data.frame(read.csv("/home/corinn/Documents/Sampling_trip/isolate_list_peru2019_total - TOTAL(1).csv", sep = ",", header = T))
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv", sep = ",", header = T))
+coords <- as.data.frame(read.csv("/home/corinn/Documents/Sampling_trip/iso_cc.csv", sep = ",", header = T))
+#create full species name, rearrange dataset
+blast_res$fullname <- paste(blast_res$TopHit_genus,blast_res$TopHit_species, sep = " ")
+blast_res <- data.frame(tip.label = blast_res$fullname,label = blast_res$Query_ID,pid = blast_res$Hit_pid)
+blast_res <- as.data.frame(blast_res %>% distinct(label, .keep_all = T))
+t$tip.label %in% blast_res$label
+t$tip.label
+lenght(t$tip.label)
+length(t$tip.label)
+length(blast_res$label)
+#read in tree, drop duplicates (not controls), fix labels, subset cc, make sure t_df is converted to a phylo object
+t = read.tree("/home/corinn/Documents/sequences/ITS/pops/fasta/trees_raxml/T13.raxml.rooted.support")
+t_o <- tree_subset(t, "93", levels_back = 2)
+library(treeio)
+t_o <- tree_subset(t, "93", levels_back = 2)
+plot(t_o)
+View(t_o)
+t_o <- tree_subset(t, "93", levels_back = 2)
+View(t_o)
+View(t)
+blast_res_sub <-
+#create plotable object
+p <- ggtree(t_o) %<+% blast_res
+View(blast_res)
+?read.csv
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv",
+colClasses = c("character", "character", "numeric"), sep = ",", header = T))
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv",
+sep = ",", header = T,  colClasses = c("character", "character", "numeric")))
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv",
+sep = ",", header = T))
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv",
+sep = ",", header = T)))
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv",
+sep = ",", header = T)))
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv", sep = ",", header = T))
+coords <- as.data.frame(read.csv("/home/corinn/Documents/Sampling_trip/iso_cc.csv", sep = ",", header = T,  colClasses = c("character", "character", "numeric")))
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv", sep = ",", header = T), ,  colClasses = c("character", "character", "numeric"))
+View(blast_res)
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv", sep = ",", header = T, ,  colClasses = c("character", "character", "numeric")))
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv", sep = ",", header = T, ,  colClasses = c("character", "character","character", "numeric")))
+type(blast_res)
+type(blast_res[1])
+class(blast_res[1])
+class(blast_res[,1])
+#create full species name, rearrange dataset
+blast_res$fullname <- paste(blast_res$TopHit_genus,blast_res$TopHit_species, sep = " ")
+blast_res <- data.frame(tip.label = blast_res$fullname,label = blast_res$Query_ID,pid = blast_res$Hit_pid)
+blast_res_sub <-
+#create plotable object
+p <- ggtree(t_o) %<+% blast_res
+t_m <- merge.data.frame(t,blast_res, by.y = "label")
+blast_res_sub <-
+#create plotable object
+p <- ggtree(t_o) %<+% blast_res
+t_o <- tree_subset(t, "187", levels_back = 1)
+plot(t_o)
+blast_res_sub <-
+#create plotable object
+blast_res2 <- subset.data.frame(blast_res[blast_res$label %in% c("116", "187"),])
+View(blast_res2)
+p <- ggtree(t_o) %<+% blast_res2
+colnames(blast_res$label) = "l"
+colnames(blast_res[1]) = "l"
+View(blast_res2)
+colnames(blast_res2[1]) = "l"
+View(blast_res2)
+colnames(blast_res2) = c("Q","l","pid")
+p <- ggtree(t_o) %<+% blast_res2
+p
+p2 <- p + geom_tiplab() + geom_tippoint() + geom_label(aes(label = blast_res$tip.label))
+p2
+p2 <- p + geom_tiplab() + geom_tippoint() + geom_label(aes(label = blast_res2$tip.label))
+p2 <- p + geom_tiplab() + geom_tippoint() + geom_label(aes(label = blast_res2$l))
+p2
+View(t_o)
+p2 <- p + geom_label(aes(label = blast_res2$l))
+p2
+p <- ggtree(t_o)
+p
+p2 <- p + geom_label(aes(label = blast_res2$l))
+p2
+p <- ggtree(t_o) %<+% blast_res2
+p
+p2 <- p + geom_label(aes(label = blast_res2$l))
+p2 <- p + geom_label(aes(label = "l"))
+p2
+p2 <- p + geom_tiplab(aes(label = "l"))
+p2
+p2 <- p + geom_tiplab(aes(label = blast_res2$l))
+p2
+p2 <- p + geom_tippoint(aes(label = blast_res2$l))
+p2
+library(ggimage)
+install.packages("ggimage")
+library(ggimage)
+url <- paste0("https://raw.githubusercontent.com/TreeViz/",
+"metastyle/master/design/viz_targets_exercise/")
+info <- read.csv(paste0(url, "tip_data.csv"))
+View(info)
+ggtree(t) + geom_label() + geom_tippoint()
+p2 <- p + geom_label(aes(label = blast_res2$l))
+p2
+colnames(blast_res2) = c("Q","Newick_label","pid")
+p <- ggtree(t_o) %<+% blast_res2
+p2 <- p + geom_label(aes(label = blast_res2$l))
+p
+p2 <- p + geom_tiplab()
+p2
+p2 <- p + geom_tiplab(aes(offset = .6, hjust +.5))
+p2 <- p + geom_tiplab(aes(offset = .6, hjust +.5))+
+geom_tippoint(aes(shape = Q, color = trophic_habit, size = pid))
+p2 <- p + geom_tiplab(aes(offset = .6, hjust +.5))+
+geom_tippoint(aes(shape = Q, color = Q, size = pid))
+p2 <- p + geom_tiplab(aes(offset = .6, hjust +.5))+
+geom_tippoint(aes(shape = Q, color = Q, size = pid))
+p2 <- p + geom_tiplab(aes(offset = .6, hjust +.5))+
+geom_tippoint(aes(shape = Q, color = Q, size = pid)) +
+theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p <- ggtree(t_o) %<+% blast_res2
+p2 <- p + geom_tiplab(aes(offset = .6, hjust +.5))
+p2
+p2 <- p + geom_tiplab(aes(offset = .6, hjust = .5))
+p2
+View(info)
++
+geom_tippoint(aes(shape = Q, color = Q, size = pid)) +
+theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2 <- p + geom_tiplab(aes(offset = .6, hjust = .5)) + geom_tippoint(aes(shape = Q, color = Q, size = pid)) + theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv", sep = ",", header = T, ,  colClasses = c("factor", "character","character", "numeric")))
+class(blast_res[,1])
+#create full species name, rearrange dataset
+blast_res$fullname <- paste(blast_res$TopHit_genus,blast_res$TopHit_species, sep = " ")
+blast_res_sub <-
+#create plotable object
+blast_res2 <- subset.data.frame(blast_res[blast_res$label %in% c("116", "187"),])
+colnames(blast_res2) = c("Q","Newick_label","pid")
+p <- ggtree(t_o) %<+% blast_res2
+blast_res <- as.data.frame(read.csv("/home/corinn/Documents/sequences/ITS/pops/blast_results/all/all_blastresults.csv", sep = ",", header = T, colClasses = c("factor", "character","character", "numeric")))
+#create full species name, rearrange dataset
+blast_res$fullname <- paste(blast_res$TopHit_genus,blast_res$TopHit_species, sep = " ")
+blast_res <- data.frame(tip.label = blast_res$fullname,label = blast_res$Query_ID,pid = blast_res$Hit_pid)
+blast_res_sub <-
+#create plotable object
+blast_res2 <- subset.data.frame(blast_res[blast_res$label %in% c("116", "187"),])
+colnames(blast_res2) = c("Q","Newick_label","pid")
+p <- ggtree(t_o) %<+% blast_res2
+p
+p2 <- p + geom_label(aes(label = blast_res2$l))
+p2 <- p + geom_tiplab(aes(offset = .6, hjust = .5)) + geom_tippoint(aes(shape = Q, color = Q, size = pid)) + theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+p <- ggtree(t_o) %<+% blast_res2
+p
+p2 <- p + geom_tiplab(aes(offset = .6, hjust = .5)) + geom_tippoint(aes(shape = Q, color = Q, size = pid)) + theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+p2 <- p + geom_tiplab(aes(offset = .6, hjust = .5))
+p2
+p2 <- p + geom_tiplab(aes(offset = .6, hjust = .5)) + geom_tippoint(aes(shape = pid, color = Q, size = pid)) + theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+p2 <- p + geom_tiplab(aes(offset = .6, hjust = .5)) + geom_tippoint(aes(shape = pid, color = pid, size = pid)) + theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+class(info$trophic_habit)
+class(blast_res2$Q)
+colnames(blast_res2) = c("Queryid","Newick_label","pid")
+colnames(blast_res2) = c("hitID","Newick_label","pid")
+p2 <- p + geom_tiplab(aes(offset = .6, hjust = .5)) + geom_tippoint(aes(shape = hitID, color = pid, size = pid)) + theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+p2 <- p + geom_tiplab(aes(offset = .6, hjust = .5)) + geom_tippoint(aes(shape = blast_res2$hitID, color = pid, size = pid)) + theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+p2 <- p + geom_tiplab(aes(offset = .6, hjust = .5)) + geom_tippoint(aes(shape = blast_res2$hitID, color = blast_res2$pid, size = blast_res2$pid)) + theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+x <- read.tree(paste0(url, "tree_boots.nwk"))
+View(x)
+View(t_o)
+View(x)
+View(t_o)
+colnames(blast_res2) = c("hit","Newick_label","pid")
+p <- ggtree(t_o) %<+% blast_res2
+p
+p2 <- p + geom_tiplab(aes(offset = .6, hjust = .5)) + geom_tippoint(aes(shape = blast_res2$hitID, color = blast_res2$pid, size = blast_res2$pid)) + theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+p2 <- p + geom_tiplab(aes(offset = .6, hjust = .5)) + geom_tippoint(aes(shape = hit, color = hit, size = 4)) + theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+library(ggimage)
+library(ggtree)
+url <- paste0("https://raw.githubusercontent.com/TreeViz/",
+"metastyle/master/design/viz_targets_exercise/")
+x <- read.tree(paste0(url, "tree_boots.nwk"))
+info <- read.csv(paste0(url, "tip_data.csv"))
+p <- ggtree(x) %<+% info + xlim(-.1, 4)
+p2 <- p + geom_tiplab(offset = .6, hjust = .5) +
+geom_tippoint(aes(shape = trophic_habit, color = trophic_habit, size = mass_in_kg)) +
+theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+p <- ggtree(t_o) %<+% blast_res2 + xlim(-.1, 4)
+p
+p2 <- p + geom_tiplab(aes(offset = .6, hjust = .5)) + geom_tippoint(aes(shape = hit, color = hit, size = 4)) + theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+p <- ggtree(x) %<+% blast_res2 + xlim(-.1, 4)
+p
+p2 <- p + geom_tiplab(aes(offset = .6, hjust = .5)) + geom_tippoint(aes(shape = trophic_habit, color = trophic_habit, size = 4)) + theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+p <- ggtree(t_o) %<+% blast_res2 + xlim(-.1, 4)
+p
+p2 <- p + geom_tiplab(offset = .6, hjust = .5) +
+geom_tippoint(aes(shape = hit, color = hit, size = pid)) +
+theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+View(blast_res2)
+p <- ggtree(x) %<+% info + xlim(-.1, 4)
+p2 <- p + geom_tiplab(offset = .6, hjust = .5) +
+geom_tippoint(aes(shape = trophic_habit, color = trophic_habit, size = mass_in_kg)) +
+theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+View(info)
+p <- ggtree(t_o) %<+% blast_res2 + xlim(-.1, 4)
+p2 <- p + geom_tiplab(offset = .6, hjust = .5) +
+geom_tippoint(aes(shape = blast_res2$hit, color = blast_res2$hit, size = blast_res2$pid)) +
+theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+View(x)
+View(info)
+?geom_tippoint
+p <- ggtree(t_o, es(shape = blast_res2$hit, color = blast_res2$hit, size = blast_res2$pid)) %<+% blast_res2 + xlim(-.1, 4)
+p <- ggtree(t_o, aes(shape = blast_res2$hit, color = blast_res2$hit, size = blast_res2$pid)) %<+% blast_res2 + xlim(-.1, 4)
+p
+p <- ggtree(t_o, aes(shape = hit, color = hit, size = pid)) %<+% blast_res2 + xlim(-.1, 4)
+p
+blast_res2 <- blast_res2[c(2,1,3),]
+View(blast_res2)
+blast_res2 <- blast_res2[,c(2,1,3)]
+View(blast_res2)
+blast_res_sub <-
+#create plotable object
+blast_res2 <- subset.data.frame(blast_res[blast_res$label %in% c("116", "187"),])
+colnames(blast_res2) = c("hit","Newick_label","pid")
+blast_res2 <- blast_res2[,c(2,1,3)]
+View(blast_res2)
+p <- ggtree(t_o, aes(shape = hit, color = hit, size = pid)) %<+% blast_res2 + xlim(-.1, 4)
+p2 <- p + geom_tiplab(offset = .6, hjust = .5) +
+geom_tippoint(aes(shape = blast_res2$hit, color = blast_res2$hit, size = blast_res2$pid)) +
+theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+p2 <- p + geom_tiplab(offset = .6, hjust = .5) +
+geom_tippoint(aes(shape = hit, color = hit, size = pid)) +
+theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+p2 <- p + geom_tiplab(offset = .6, hjust = .5) +
+geom_tippoint(aes(shape = hit, color = hit, size = 4)) +
+theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+p
+p <- ggtree(t_o, aes(shape = hit, color = hit, size = pid)) %<+% blast_res2
+p2 <- p + geom_tiplab(offset = .6, hjust = .5) +
+geom_tippoint(aes(shape = hit, color = hit, size = 4)) +
+theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+p
+p <- ggtree(t_o, aes(shape = hit, color = hit, size = pid)) %<+% blast_res2
+p2 <- p + geom_tiplab(offset = .6, hjust = .5) +
+geom_tippoint(aes(shape = hit, color = hit, size = 4)) +
+theme(legend.position = "right") + scale_size_continuous(range = c(3, 10))
+p2
+p
+p2 <- p + geom_tiplab(offset = .6, hjust = .5) +
+geom_tippoint(aes(shape = hit, color = hit, size = 4)) +
+theme(legend.position = "right")
+p2
+p <- ggtree(t_o, aes(shape = hit, color = hit, size = pid)) %<+% blast_res2
+p2 <- p + geom_tiplab(offset = .6, hjust = .5) +
+geom_tippoint(aes(shape = hit, color = hit, size = 4)) +
+theme(legend.position = "right")
+p2
+p
+rm(p)
+rm(p2)
+p <- ggtree(t_o, aes(shape = hit, color = hit, size = pid)) %<+% blast_res2
+p
+p2 <- p + geom_tiplab(offset = .6, hjust = .5)
+p2
+p <- ggtree(t_o) %<+% blast_res2
+p
+p2 <- p + geom_tiplab(offset = .6, hjust = .5)
+p2
+p2 <- p + geom_tiplab()
+p2
+p3 <- p2 + geom_tippoint(aes(shape = hit, color = hit, size = 4))
+p3
+p3 <- p2 + geom_tippoint(aes(shape = hit, color = hit, size = pid))
+p3
+p3 <- p2 + geom_tippoint(aes(shape = hit, color = hit, size = pid)) + scale_size_continuous(range = c(70, 100))
+p3
+p3 <- p2 + geom_tippoint(aes(shape = hit, color = hit, size = pid))
+p3
