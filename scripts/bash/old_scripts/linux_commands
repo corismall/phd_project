@@ -1,1 +1,0 @@
-cat tba_data.statistics.csv | grep ^CP | awk -F "," '{print $1}' | sort -u 
